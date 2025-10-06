@@ -1,18 +1,22 @@
-/*
-    Estilo Cyberpunk 2077
-    Paleta: #FF33FF (Roxo/Magenta), #00FFFF (Ciano), #FFFF00 (Amarelo)
-*/
+/*====================================*/
+/* 1. BASE: VARIÁVEIS, GLOBAIS E ESTRUTURA */
+/*====================================*/
 
+/* --- Variáveis de Cor (Tema Cyberpunk) --- */
 :root {
-    --bg-color: #0d0d1a; /* Fundo Escuro */
-    --text-color: #f0f0f0; /* Texto Claro */
-    --primary-neon: #FF33CC; /* Roxo/Magenta */
-    --secondary-neon: #00FFFF; /* Ciano */
-    --accent-neon: #FFFF00; /* Amarelo */
-    --glitch-color-1: var(--primary-neon);
-    --glitch-color-2: var(--secondary-neon);
-    --glitch-color-3: var(--accent-neon);
+    --bg-color-fallback: #0d0d1a; /* Fundo Escuro de fallback */
+    --text-color: #f0f0f0;    /* Texto Claro */
+    --primary-neon: #FF33CC;  /* Roxo/Magenta - Acentuação principal */
+    --secondary-neon: #00FFFF; /* Ciano - Destaque secundário */
+    --accent-neon: #FFFF00;   /* Amarelo - Ação/Atenção */
     --transition-speed: 0.3s;
+    --card-bg: #1a1a2e;       /* Fundo mais escuro para cards/componentes */
+    --overlay-color: rgba(13, 13, 26, 0.85); /* Cor do overlay (usando o bg-color base com transparência) */
+}
+
+/* --- Configurações HTML e Body --- */
+html {
+    scroll-behavior: smooth; /* Rolagem suave */
 }
 
 * {
@@ -23,14 +27,49 @@
 
 body {
     font-family: 'Rajdhani', sans-serif;
-    background-color: var(--bg-color);
     color: var(--text-color);
     line-height: 1.6;
-    overflow-x: hidden; /* Previne scroll horizontal por causa do glitch */
+    overflow-x: hidden;
     min-height: 100vh;
     padding-top: 80px; /* Espaço para o header fixo */
+
+    /* --- NOVAS REGRAS PARA IMAGEM DE FUNDO --- */
+    background-image: url('assets/night city.jpeg'); /* Caminho para sua imagem */
+    background-size: cover; /* Cobre todo o fundo */
+    background-attachment: fixed; /* Imagem fixa enquanto o conteúdo rola */
+    background-position: center center; /* Centraliza a imagem */
+    background-color: var(--bg-color-fallback); /* Cor de fallback caso a imagem não carregue */
+    position: relative; /* Necessário para o pseudo-elemento overlay */
 }
 
+/* --- Overlay para Escurecer a Imagem de Fundo --- */
+body::before {
+    content: '';
+    position: fixed; /* Fixo para cobrir toda a viewport */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--overlay-color); /* A cor escura semi-transparente */
+    z-index: -1; /* Fica abaixo do conteúdo do body */
+}
+
+/* --- Estilos para o Header (garantir visibilidade sobre o overlay) --- */
+.header-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: rgba(13, 13, 26, 0.95); /* Fundo semi-transparente do header */
+    border-bottom: 1px solid var(--primary-neon);
+    z-index: 1000; /* Garante que o header esteja acima do overlay */
+    padding: 15px 5%;
+    box-shadow: 0 0 10px rgba(255, 51, 204, 0.3);
+}
+
+/* --- O restante do CSS permanece inalterado --- */
+
+/* --- Links e Efeitos Gerais --- */
 a {
     color: var(--secondary-neon);
     text-decoration: none;
@@ -42,35 +81,26 @@ a:hover {
     text-shadow: 0 0 5px var(--primary-neon);
 }
 
-/* --- Efeitos Globais e Tipografia --- */
-
 .neon-highlight {
     color: var(--primary-neon);
     text-shadow: 0 0 5px rgba(255, 51, 204, 0.5);
-}
-
-h1, h2, h3 {
-    font-family: 'Audiowide', cursive; /* Fonte mais agressiva para títulos */
-    margin-bottom: 0.5em;
 }
 
 .section-container {
     padding: 100px 5% 50px;
     max-width: 1200px;
     margin: 0 auto;
-    opacity: 1;
-    transform: translateY(0);
-    transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+    /* Adicione um background mais claro para as seções se quiser que o conteúdo delas se destaque ainda mais */
+    /* background-color: rgba(13, 13, 26, 0.7); */ /* Exemplo de fundo semi-transparente para as seções */
+    /* border-radius: 8px; */
+    /* margin-bottom: 30px; */
+    /* box-shadow: 0 0 15px rgba(0, 255, 255, 0.1); */
 }
 
-.section-container.hidden {
-    opacity: 0;
-    transform: translateY(20px);
-    pointer-events: none; /* Desabilita interações enquanto oculto */
-    position: absolute; /* Para que a transição funcione como o site de referência */
-    width: 100%;
-    top: 80px;
-    left: 0;
+/* --- Títulos Gerais --- */
+h1, h2, h3 {
+    font-family: 'Audiowide', cursive;
+    margin-bottom: 0.5em;
 }
 
 .section-title {
@@ -89,26 +119,24 @@ h1, h2, h3 {
     font-size: 0.8em;
 }
 
-
-/* --- Header (Barra de Navegação Fixa) --- */
-.header-nav {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    background-color: rgba(13, 13, 26, 0.95); /* Fundo semi-transparente */
-    border-bottom: 1px solid var(--primary-neon);
-    z-index: 1000;
-    padding: 15px 5%;
-    box-shadow: 0 0 10px rgba(255, 51, 204, 0.3);
+/* --- Componente Botão Néon --- */
+.neon-button {
+    display: inline-block;
+    padding: 10px 20px;
+    margin-top: 15px;
+    background-color: var(--accent-neon);
+    color: var(--bg-color-fallback); /* Use a cor de fallback para o texto do botão */
+    font-weight: bold;
+    border-radius: 4px;
+    text-transform: uppercase;
+    transition: all var(--transition-speed);
 }
 
-.header-nav nav {
-    display: flex;
-    justify-content: flex-end;
-    max-width: 1200px;
-    margin: 0 auto;
+.neon-button:hover {
+    background-color: #fffb00;
+    box-shadow: 0 0 15px var(--accent-neon);
 }
+
 
 .nav-item {
     font-family: 'Audiowide', cursive;
@@ -129,11 +157,10 @@ h1, h2, h3 {
 
 .pdf-button {
     background-color: var(--accent-neon);
-    color: var(--bg-color) !important;
+    color: var(--bg-color-fallback) !important;
     font-weight: bold;
     border: none !important;
     text-shadow: none !important;
-    transition: background-color var(--transition-speed);
 }
 
 .pdf-button:hover {
@@ -141,11 +168,23 @@ h1, h2, h3 {
     box-shadow: 0 0 15px var(--accent-neon);
 }
 
+/* --- Rodapé --- */
+.footer-cyber {
+    text-align: center;
+    padding: 30px 0;
+    border-top: 1px dashed var(--secondary-neon);
+    margin-top: 50px;
+    font-size: 0.9rem;
+    color: #aaa;
+}
 
-/* --- 1. HOME --- */
+/*====================================*/
+/* 2. MODULES: ESTILOS DE SEÇÃO */
+/*====================================*/
 
+/* --- Seção 01: HOME --- */
 #home {
-    min-height: calc(100vh - 80px); /* 100% da viewport menos o header */
+    min-height: calc(100vh - 80px);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -180,24 +219,64 @@ h1, h2, h3 {
 }
 
 .neon-link {
-    font-family: 'Rajdhani', sans-serif;
-    text-transform: uppercase;
-    font-weight: 600;
-    padding: 8px 15px;
+    /* Estilos herdados da seção de BASE */
     border: 1px solid var(--secondary-neon);
-    border-radius: 4px;
-    transition: all var(--transition-speed);
     text-shadow: 0 0 5px rgba(0, 255, 255, 0.4);
 }
 
 .neon-link:hover {
     background-color: var(--secondary-neon);
-    color: var(--bg-color);
+    color: var(--bg-color-fallback);
     box-shadow: 0 0 15px var(--secondary-neon);
 }
 
-/* --- 2. SOBRE MIM --- */
+/* --- Efeito Glitch no Título Home (Fica aqui por ser específico do H1) --- */
+.glitch {
+    position: relative;
+    font-family: 'Audiowide', cursive;
+}
+.glitch::before, .glitch::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* Força a cor de fundo para a cor escura base */
+    background: var(--bg-color-fallback); 
+    clip: rect(0, 0, 0, 0);
+}
+.glitch::before {
+    left: 2px;
+    /* Usa a cor neon primária para o deslocamento 1 */
+    text-shadow: -1px 0 var(--primary-neon); 
+    animation: glitch-anim-1 2s infinite linear alternate-reverse;
+}
+.glitch::after {
+    left: -2px;
+    /* Usa a cor neon secundária para o deslocamento 2 */
+    text-shadow: 1px 0 var(--secondary-neon); 
+    animation: glitch-anim-2 3s infinite linear alternate-reverse;
+}
+@keyframes glitch-anim-1 {
+    0% { clip: rect(24px, 9999px, 80px, 0); }
+    20% { clip: rect(60px, 9999px, 88px, 0); }
+    40% { clip: rect(10px, 9999px, 44px, 0); }
+    60% { clip: rect(80px, 9999px, 100px, 0); }
+    80% { clip: rect(5px, 9999px, 95px, 0); }
+    100% { clip: rect(70px, 9999px, 110px, 0); }
+}
 
+@keyframes glitch-anim-2 {
+    0% { clip: rect(10px, 9999px, 50px, 0); }
+    25% { clip: rect(70px, 9999px, 120px, 0); }
+    50% { clip: rect(5px, 9999px, 90px, 0); }
+    75% { clip: rect(40px, 9999px, 115px, 0); }
+    100% { clip: rect(20px, 9999px, 80px, 0); }
+}
+
+
+/* --- Seção 02: SOBRE MIM --- */
 .about-content {
     display: flex;
     gap: 50px;
@@ -228,25 +307,8 @@ h1, h2, h3 {
     transform: scale(1.05);
 }
 
-.neon-button {
-    display: inline-block;
-    padding: 10px 20px;
-    margin-top: 15px;
-    background-color: var(--accent-neon);
-    color: var(--bg-color);
-    font-weight: bold;
-    border-radius: 4px;
-    text-transform: uppercase;
-    transition: all var(--transition-speed);
-}
 
-.neon-button:hover {
-    background-color: #fffb00;
-    box-shadow: 0 0 15px var(--accent-neon);
-}
-
-/* --- 3. TECH STACK --- */
-
+/* --- Seção 03: TECH STACK --- */
 .tech-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -264,7 +326,7 @@ h1, h2, h3 {
 }
 
 .tech-category .full-width {
-    grid-column: 1 / -1; /* Ocupa a largura total */
+    grid-column: 1 / -1;
 }
 
 .badges-list {
@@ -286,19 +348,19 @@ h1, h2, h3 {
 
 .tech-badge:hover {
     background-color: var(--primary-neon);
-    color: var(--bg-color);
+    color: var(--bg-color-fallback);
     box-shadow: 0 0 10px var(--primary-neon);
     transform: translateY(-2px);
 }
 
-/* --- 4. PROJETOS RELEVANTES --- */
 
+/* --- Seção 04: PROJETOS RELEVANTES --- */
 .project-card {
     display: flex;
     align-items: center;
     margin-bottom: 60px;
     padding: 30px;
-    background-color: #1a1a2e; /* Fundo mais escuro para destaque */
+    background-color: var(--card-bg);
     border: 1px solid rgba(0, 255, 255, 0.3);
     border-radius: 8px;
     box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
@@ -310,13 +372,8 @@ h1, h2, h3 {
     transform: translateY(-5px);
 }
 
-.project-card.left {
-    flex-direction: row;
-}
-
-.project-card.right {
-    flex-direction: row-reverse; /* Inverte a ordem */
-}
+.project-card.left { flex-direction: row; }
+.project-card.right { flex-direction: row-reverse; }
 
 .project-image {
     flex: 1.5;
@@ -331,9 +388,7 @@ h1, h2, h3 {
     transition: opacity var(--transition-speed);
 }
 
-.project-card:hover .project-image img {
-    opacity: 1;
-}
+.project-card:hover .project-image img { opacity: 1; }
 
 .project-details {
     flex: 2;
@@ -377,30 +432,23 @@ h1, h2, h3 {
     font-size: 0.8rem;
 }
 
-.project-link {
-    padding: 8px 15px;
-    border-radius: 4px;
-    font-weight: 600;
-    transition: all var(--transition-speed);
-}
-
 .github-link {
     border: 1px solid var(--secondary-neon);
 }
 
 .demo-link {
     background-color: var(--primary-neon);
-    color: var(--bg-color);
+    color: var(--bg-color-fallback);
 }
 
 .demo-link:hover {
     background-color: #ff55d9;
     box-shadow: 0 0 10px var(--primary-neon);
-    color: var(--bg-color);
+    color: var(--bg-color-fallback);
 }
 
-/* --- 5. EXPERIÊNCIA --- */
 
+/* --- Seção 05: EXPERIÊNCIA --- */
 .timeline-container {
     border-left: 2px solid var(--secondary-neon);
     padding-left: 20px;
@@ -422,7 +470,7 @@ h1, h2, h3 {
     height: 15px;
     background-color: var(--primary-neon);
     border-radius: 50%;
-    border: 3px solid var(--bg-color);
+    border: 3px solid var(--bg-color-fallback);
     box-shadow: 0 0 10px var(--primary-neon);
 }
 
@@ -444,7 +492,7 @@ h1, h2, h3 {
 }
 
 .deliverables {
-    list-style-type: '⚡'; /* Ícone de energia */
+    list-style-type: '⚡';
     padding-left: 20px;
     margin-top: 10px;
 }
@@ -454,16 +502,8 @@ h1, h2, h3 {
     padding-left: 5px;
 }
 
-.job-tech {
-    margin-top: 15px;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-}
 
-
-/* --- 6. CONTATO --- */
-
+/* --- Seção 06: CONTATO --- */
 .contact-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -478,7 +518,7 @@ h1, h2, h3 {
     padding: 30px;
     border: 1px solid var(--primary-neon);
     border-radius: 8px;
-    background-color: #1a1a2e;
+    background-color: var(--card-bg);
     box-shadow: 0 0 10px rgba(255, 51, 204, 0.4);
     transition: all var(--transition-speed);
 }
@@ -502,99 +542,31 @@ h1, h2, h3 {
     word-break: break-all;
 }
 
-/* --- Rodapé --- */
-.footer-cyber {
-    text-align: center;
-    padding: 30px 0;
-    border-top: 1px dashed var(--secondary-neon);
-    margin-top: 50px;
-    font-size: 0.9rem;
-    color: #aaa;
-}
 
+/*====================================*/
+/* 3. MEDIA: RESPONSIVIDADE */
+/*====================================*/
 
-/* --- Efeito Glitch no Título Home (Inspirado no Tamal Sen) --- */
-.glitch {
-    position: relative;
-    font-family: 'Audiowide', cursive;
-}
-
-.glitch::before,
-.glitch::after {
-    content: attr(data-text);
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: var(--bg-color);
-    clip: rect(0, 0, 0, 0);
-}
-
-.glitch::before {
-    left: 2px;
-    text-shadow: -1px 0 var(--glitch-color-1);
-    animation: glitch-anim-1 2s infinite linear alternate-reverse;
-}
-
-.glitch::after {
-    left: -2px;
-    text-shadow: 1px 0 var(--glitch-color-2);
-    animation: glitch-anim-2 3s infinite linear alternate-reverse;
-}
-
-@keyframes glitch-anim-1 {
-    0% { clip: rect(24px, 9999px, 80px, 0); }
-    20% { clip: rect(60px, 9999px, 88px, 0); }
-    40% { clip: rect(10px, 9999px, 44px, 0); }
-    60% { clip: rect(80px, 9999px, 100px, 0); }
-    80% { clip: rect(5px, 9999px, 95px, 0); }
-    100% { clip: rect(70px, 9999px, 110px, 0); }
-}
-
-@keyframes glitch-anim-2 {
-    0% { clip: rect(10px, 9999px, 50px, 0); }
-    25% { clip: rect(70px, 9999px, 120px, 0); }
-    50% { clip: rect(5px, 9999px, 90px, 0); }
-    75% { clip: rect(40px, 9999px, 115px, 0); }
-    100% { clip: rect(20px, 9999px, 80px, 0); }
-}
-
-/* --- Efeito Glitch Overlay para Transição --- */
-.glitch-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: var(--bg-color);
-    z-index: 2000;
-    pointer-events: none;
-    opacity: 0;
-    /* Transição para a opacidade e a animação do glitch */
-    transition: opacity 0.1s ease-out; 
-}
-
-.glitch-overlay.active {
-    opacity: 1;
-    animation: activate-glitch 0.3s forwards;
-}
-
-/* Animação de Glitch mais intensa na transição */
-@keyframes activate-glitch {
-    0% { opacity: 0.5; clip: rect(0, 9999px, 0, 0); }
-    50% { opacity: 1; clip: rect(50%, 9999px, 50%, 0); background-color: var(--primary-neon); }
-    100% { opacity: 0.5; clip: rect(100%, 9999px, 100%, 0); }
-}
-
-/* --- Media Queries para Responsividade --- */
 @media (max-width: 900px) {
+    /* Geral */
+    .section-container {
+        padding-top: 50px;
+        padding-bottom: 30px;
+    }
     .main-title { font-size: 3rem; }
     .subtitle { font-size: 1.8rem; }
+    .header-nav nav { justify-content: space-around; }
+    .nav-item { margin-left: 0; padding: 5px; font-size: 0.8rem; }
+    .pdf-button { display: none; } /* Oculta o botão PDF em telas pequenas */
+
+    /* Sobre Mim */
     .about-content { flex-direction: column; text-align: center; }
     .about-image { order: -1; margin-bottom: 20px; }
+    
+    /* Tech Stack */
     .tech-grid { grid-template-columns: 1fr; }
     
+    /* Projetos */
     .project-card, .project-card.right {
         flex-direction: column;
         text-align: center;
@@ -610,4 +582,26 @@ h1, h2, h3 {
     .project-tech, .project-links, .project-card.right .project-tech, .project-card.right .project-links {
         justify-content: center;
     }
+    .project-card { padding: 20px; }
+    
+    /* Contato */
+    .contact-grid { grid-template-columns: 1fr; }
+}
+
+/* --- GLITCH ANIMAÇÕES --- */
+@keyframes glitch-anim-1 {
+    0% { clip: rect(24px, 9999px, 80px, 0); }
+    20% { clip: rect(60px, 9999px, 88px, 0); }
+    40% { clip: rect(10px, 9999px, 44px, 0); }
+    60% { clip: rect(80px, 9999px, 100px, 0); }
+    80% { clip: rect(5px, 9999px, 95px, 0); }
+    100% { clip: rect(70px, 9999px, 110px, 0); }
+}
+
+@keyframes glitch-anim-2 {
+    0% { clip: rect(10px, 9999px, 50px, 0); }
+    25% { clip: rect(70px, 9999px, 120px, 0); }
+    50% { clip: rect(5px, 9999px, 90px, 0); }
+    75% { clip: rect(40px, 9999px, 115px, 0); }
+    100% { clip: rect(20px, 9999px, 80px, 0); }
 }
