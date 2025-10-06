@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SuaDev - Desenvolvedora de Software | Cyberpunk Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&family=Audiowide&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="glitch-overlay"></div>
+
+    <header class="header-nav">
+        <nav>
+            <a href="#home" class="nav-item active" data-section="home">01. Início</a>
+            <a href="#about" class="nav-item" data-section="about">02. Sobre</a>
+            <a href="#tech" class="nav-item" data-section="tech">03. Tech-Stack</a>
+            <a href="#projects" class="nav-item" data-section="projects">04. Projetos</a>
+            <a href="#experience" class="nav-item" data-section="experience">05. Experiência</a>
+            <a href="#contact" class="nav-item" data-section="contact">06. Contato</a>
+            <a href="/assets/portfolio.pdf" target="_blank" class="nav-item pdf-button"><i class="fas fa-file-pdf"></i>
+                PDF</a>
+        </nav>
+    </header>
+
+    <main>
+        <section id="home" class="section-container active">
+            <p class="greeting">// Olá, Mundo.</p>
+            <h1 class="main-title glitch" data-text="[NOME COMPLETO]">
+                [NOME COMPLETO]
+            </h1>
+            <h2 class="subtitle">// Desenvolvedora de Software | Software Developer</h2>
+            <div class="social-links">
+                <a href="LINK_LINKEDIN" target="_blank" class="neon-link"><i class="fab fa-linkedin"></i> LinkedIn</a>
+                <a href="LINK_GITHUB" target="_blank" class="neon-link"><i class="fab fa-github"></i> GitHub</a>
+                <a href="mailto:SEU_EMAIL@exemplo.com" class="neon-link"><i class="fas fa-envelope"></i> E-mail</a>
+            </div>
+        </section>
+
+        <section id="about" class="section-container hidden">
+            <h2 class="section-title">02. // Sobre Mim <span class="title-decor">.SYS</span></h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p class="summary-text">
+                        Sou **Desenvolvedora de Software** com foco em criar soluções **escaláveis e eficientes**. Tenho
+                        experiência com desenvolvimento web, APIs e integração de sistemas. Minha paixão é traduzir
+                        desafios complexos em códigos limpos e funcionais, e adoro aprender novas tecnologias no
+                        processo.
+                    </p>
+                    <p class="area-interest">
+                        <span class="neon-highlight">Áreas de Interesse:</span> Desenvolvimento Full Stack, Back-End com
+                        Python/Node, Automação de Processos, e Arquiteturas Escaláveis.
+                    </p>
+                    <p class="cv-cta">
+                        Quer saber mais sobre meu histórico? Baixe meu CV completo!
+                        <a href="/assets/portfolio.pdf" target="_blank" class="neon-button"><i
+                                class="fas fa-download"></i> Download CV</a>
+                    </p>
+                </div>
+                <div class="about-image">
+                    <img src="assets/avatar.jpeg" alt="Foto Profissional ou Avatar Técnico" class="cyber-avatar">
+                </div>
+            </div>
+        </section>
+
+        <section id="tech" class="section-container hidden">
+            <h2 class="section-title">03. // Tech Stack <span class="title-decor">.CORE</span></h2>
+            <p class="subtitle-desc">Ferramentas e tecnologias que utilizo para construir o futuro.</p>
+
+            <div class="tech-grid">
+
+                <div class="tech-category">
+                    <h3><i class="fas fa-code"></i> Linguagens</h3>
+                    <div class="badges-list">
+                        <span class="tech-badge" data-tech="Python">Python</span>
+                        <span class="tech-badge" data-tech="JS/TS">JavaScript / TypeScript</span>
+                        <span class="tech-badge" data-tech="C++">C / C++</span>
+                        <span class="tech-badge" data-tech="Java">Java</span>
+                    </div>
+                </div>
+
+                <div class="tech-category">
+                    <h3><i class="fas fa-cogs"></i> Frameworks / Bibliotecas</h3>
+                    <div class="badges-list">
+                        <span class="tech-badge" data-tech="Node.js">Node.js</span>
+                        <span class="tech-badge" data-tech="React.js">React.js</span>
+                        <span class="tech-badge" data-tech="Express">Express</span>
+                        <span class="tech-badge" data-tech="Django">Django / Flask</span>
+                        <span class="tech-badge" data-tech="SpringBoot">Spring Boot</span>
+                    </div>
+                </div>
+
+                <div class="tech-category">
+                    <h3><i class="fas fa-database"></i> Banco de Dados</h3>
+                    <div class="badges-list">
+                        <span class="tech-badge" data-tech="MySQL">MySQL</span>
+                        <span class="tech-badge" data-tech="PostgreSQL">PostgreSQL</span>
+                        <span class="tech-badge" data-tech="MongoDB">MongoDB</span>
+                    </div>
+                </div>
+
+                <div class="tech-category">
+                    <h3><i class="fas fa-cloud"></i> Ferramentas e DevOps</h3>
+                    <div class="badges-list">
+                        <span class="tech-badge" data-tech="Git/GitHub">Git / GitHub</span>
+                        <span class="tech-badge" data-tech="Docker">Docker</span>
+                        <span class="tech-badge" data-tech="Linux">Linux</span>
+                        <span class="tech-badge" data-tech="CI/CD">CI/CD (Actions)</span>
+                    </div>
+                </div>
+
+                <div class="tech-category full-width">
+                    <h3><i class="fas fa-toolbox"></i> Outros</h3>
+                    <div class="badges-list">
+                        <span class="tech-badge" data-tech="API">APIs REST / GraphQL</span>
+                        <span class="tech-badge" data-tech="Testing">Testes Automatizados</span>
+                        <span class="tech-badge" data-tech="CleanCode">Boas Práticas (SOLID/Clean Code)</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="projects" class="section-container hidden">
+            <h2 class="section-title">04. // Projetos <span class="title-decor">.PORTFOLIO</span></h2>
+            <p class="subtitle-desc">Códigos que rodam na Night City.</p>
+
+            <div class="project-card left">
+                <div class="project-image">
+                    <img src="assets/projeto.jpeg" alt="Print do Projeto X">
+                </div>
+                <div class="project-details">
+                    <p class="project-type">// Back-End & Data</p>
+                    <h3 class="project-name">Sistema de Relatórios Automatizados (Nome do Projeto)</h3>
+                    <p class="project-description">
+                        Plataforma para automatizar a extração e geração de relatórios de vendas. Reduziu o tempo de
+                        processamento manual em 40% e forneceu dashboards em tempo real para a gestão.
+                    </p>
+                    <div class="project-tech">
+                        <span class="tech-used">Python</span>
+                        <span class="tech-used">Django</span>
+                        <span class="tech-used">PostgreSQL</span>
+                        <span class="tech-used">Docker</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="LINK_GITHUB_PROJETO" target="_blank" class="project-link github-link"><i
+                                class="fab fa-github"></i> Código Fonte</a>
+                        <a href="LINK_DEMO_PROJETO" target="_blank" class="project-link demo-link"><i
+                                class="fas fa-external-link-alt"></i> Demo Online</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card right">
+                <div class="project-details">
+                    <p class="project-type">// Front-End & Full Stack</p>
+                    <h3 class="project-name">CyberBlog: Plataforma de Conteúdo Dinâmico</h3>
+                    <p class="project-description">
+                        Blog moderno e responsivo com sistema de autenticação, CRUD completo para posts e tema
+                        totalmente inspirado em cyberpunk. Desenvolvido com uma abordagem Single Page Application (SPA).
+                    </p>
+                    <div class="project-tech">
+                        <span class="tech-used">React.js</span>
+                        <span class="tech-used">Node.js</span>
+                        <span class="tech-used">Express</span>
+                        <span class="tech-used">MongoDB</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="LINK_GITHUB_PROJETO" target="_blank" class="project-link github-link"><i
+                                class="fab fa-github"></i> Código Fonte</a>
+                        <a href="LINK_DEMO_PROJETO" target="_blank" class="project-link demo-link"><i
+                                class="fas fa-external-link-alt"></i> Demo Online</a>
+                    </div>
+                </div>
+                <div class="project-image">
+                    <img src="./assets/project-2.png" alt="Print do Projeto CyberBlog">
+                </div>
+            </div>
+
+        </section>
+
+        <section id="experience" class="section-container hidden">
+            <h2 class="section-title">05. // Histórico <span class="title-decor">.LOG</span></h2>
+            <p class="subtitle-desc">Minhas missões e entregas no campo de batalha.</p>
+
+            <div class="timeline-container">
+
+                <div class="timeline-item">
+                    <div class="period">Jan/2024 – Jun/2025</div>
+                    <div class="timeline-content">
+                        <h3 class="job-title">Estagiária de Desenvolvimento Back-End</h3>
+                        <p class="company-name">TechCorp Solutions</p>
+                        <p class="job-description">
+                            Foco no desenvolvimento e manutenção de APIs RESTful de alta performance.
+                        </p>
+                        <ul class="deliverables">
+                            <li>**Resultado Chave:** Implementei o sistema de cache de dados usando Redis, reduzindo a
+                                latência das APIs em 30%.</li>
+                            <li>Colaborei na migração de um monolito para microserviços em Node.js e Express.</li>
+                        </ul>
+                        <div class="job-tech">
+                            <span class="tech-used">Node.js</span>
+                            <span class="tech-used">Express</span>
+                            <span class="tech-used">PostgreSQL</span>
+                            <span class="tech-used">Redis</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="period">2023 (Freela)</div>
+                    <div class="timeline-content">
+                        <h3 class="job-title">Desenvolvedora Web Freelancer</h3>
+                        <p class="company-name">Projeto Voluntário: ONG de Apoio Digital</p>
+                        <p class="job-description">
+                            Desenvolvimento de um portal de doações e gestão de voluntários do zero.
+                        </p>
+                        <ul class="deliverables">
+                            <li>**Resultado Chave:** Criei o Front-End com React, resultando em um aumento de 50% na
+                                usabilidade da plataforma.</li>
+                            <li>Fui responsável pela arquitetura do banco de dados e pela documentação da API.</li>
+                        </ul>
+                        <div class="job-tech">
+                            <span class="tech-used">React.js</span>
+                            <span class="tech-used">Flask (Python)</span>
+                            <span class="tech-used">MySQL</span>
+                            <span class="tech-used">Git</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section id="contact" class="section-container hidden">
+            <h2 class="section-title">06. // Contato <span class="title-decor">.PING</span></h2>
+            <p class="subtitle-desc contact-intro">
+                Tenho interesse em oportunidades de desenvolvimento e projetos desafiadores. Me mande uma mensagem!
+            </p>
+            <div class="contact-grid">
+                <a href="mailto:SEU_EMAIL@exemplo.com" class="contact-item">
+                    <i class="fas fa-envelope neon-icon"></i>
+                    <p>E-mail Profissional</p>
+                    <span class="contact-detail">SEU_EMAIL@exemplo.com</span>
+                </a>
+                <a href="LINK_LINKEDIN" target="_blank" class="contact-item">
+                    <i class="fab fa-linkedin neon-icon"></i>
+                    <p>LinkedIn</p>
+                    <span class="contact-detail">/sua-url-linkedin</span>
+                </a>
+                <a href="LINK_GITHUB" target="_blank" class="contact-item">
+                    <i class="fab fa-github neon-icon"></i>
+                    <p>GitHub</p>
+                    <span class="contact-detail">/seu-usuario-github</span>
+                </a>
+                <a href="LINK_WHATSAPP" target="_blank" class="contact-item whatsapp-item">
+                    <i class="fab fa-whatsapp neon-icon"></i>
+                    <p>WhatsApp (Opcional)</p>
+                    <span class="contact-detail">+55 (XX) 9XXXX-XXXX</span>
+                </a>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="footer-cyber">
+        <p>Construído no <span class="neon-highlight">Setor 2077</span> por [Seu Nome].</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
