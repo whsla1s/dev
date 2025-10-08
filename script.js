@@ -1,97 +1,60 @@
 document.addEventListener('DOMContentLoaded', () => {
     const navItems = document.querySelectorAll('.nav-item:not(.pdf-button)');
     const sections = document.querySelectorAll('.section-container');
-    const header = document.querySelector('.header-nav');
-    const glitchOverlay = document.querySelector('.glitch-overlay');
-    let isTransitioning = false;
+    const headerHeight = document.querySelector('.header-nav').offsetHeight;
 
-    // Função para atualizar o hash na URL
-    const updateHash = (hash) => {
-        if (history.pushState) {
-            history.pushState(null, null, hash);
-        } else {
-            window.location.hash = hash;
-        }
-    };
-
-    // Função principal de navegação com efeito Glitch
-    const navigateToSection = (targetId) => {
-        if (isTransitioning) return;
-        isTransitioning = true;
-
-        const targetSection = document.querySelector(targetId);
-        if (!targetSection) {
-            isTransitioning = false;
-            return;
-        }
-
-        // 1. Ativar Glitch Overlay
-        glitchOverlay.classList.add('active');
-
-        setTimeout(() => {
-            // 2. Transição de Conteúdo (esconder atual, mostrar novo)
-            sections.forEach(sec => {
-                sec.classList.add('hidden');
-                sec.classList.remove('active');
-            });
-            
-            targetSection.classList.remove('hidden');
-            targetSection.classList.add('active');
-
-            // 3. Atualizar navegação
-            navItems.forEach(item => item.classList.remove('active'));
-            const activeNavItem = document.querySelector(`.nav-item[data-section="${targetId.substring(1)}"]`);
-            if (activeNavItem) {
-                activeNavItem.classList.add('active');
-            }
-
-            // 4. Atualizar o URL
-            updateHash(targetId);
-
-            // 5. Remover Glitch Overlay após a transição visual
-            setTimeout(() => {
-                glitchOverlay.classList.remove('active');
-                isTransitioning = false;
-            }, 300); // Deve ser maior que a animação CSS do glitch-overlay (0.3s)
-
-        }, 100); // Tempo para o glitch começar a aparecer antes da troca de conteúdo
-    };
-
-    // Event Listeners para a Navegação
+    // 1. Rolagem Suave (Fallback para navegadores mais antigos e para garantir o foco)
     navItems.forEach(item => {
         item.addEventListener('click', (e) => {
-            e.preventDefault(); // Previne o comportamento padrão do link
+            e.preventDefault();
             const targetId = item.getAttribute('href');
-            navigateToSection(targetId);
+            const targetElement = document.querySelector(targetId);
+
+            if (targetElement) {
+                // Rola para a seção, compensando a altura do header fixo
+                window.scrollTo({
+                    top: targetElement.offsetTop - headerHeight,
+                    behavior: 'smooth'
+                });
+                
+                // Opcional: Atualiza o hash da URL (como o Tamal Sen faz)
+                if (history.pushState) {
+                    history.pushState(null, null, targetId);
+                } else {
+                    window.location.hash = targetId;
+                }
+            }
         });
     });
 
-    // Inicialização - Verifica o hash ao carregar a página
-    const initialHash = window.location.hash || '#home';
-    const initialSection = document.querySelector(initialHash);
-    
-    // Esconde todas as seções, exceto a inicial
-    sections.forEach(sec => sec.classList.add('hidden'));
-    
-    // Mostra a seção inicial e ativa o nav-item correspondente
-    if (initialSection) {
-        initialSection.classList.remove('hidden');
-        initialSection.classList.add('active');
-        const initialNavItem = document.querySelector(`.nav-item[data-section="${initialHash.substring(1)}"]`);
-        if (initialNavItem) {
-            initialNavItem.classList.add('active');
-        }
-    } else {
-         // Caso o hash seja inválido, default para Home
-        document.getElementById('home').classList.remove('hidden');
-        document.getElementById('home').classList.add('active');
-        document.querySelector(`.nav-item[data-section="home"]`).classList.add('active');
-    }
 
-    // Navegação via botão de voltar/avançar do navegador
-    window.addEventListener('popstate', () => {
-        const hash = window.location.hash || '#home';
-        navigateToSection(hash);
+    // 2. Observer para Atualizar o Item Ativo no Menu
+    const observerOptions = {
+        root: null, // viewport
+        rootMargin: `-${headerHeight}px 0px -50% 0px`, // Ajusta a área de observação para logo abaixo do header
+        threshold: 0 // A seção se torna ativa assim que ultrapassa o limite
+    };
+
+    const sectionObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const sectionId = entry.target.id;
+
+                // Remove a classe 'active' de todos os links
+                navItems.forEach(item => item.classList.remove('active'));
+
+                // Adiciona a classe 'active' ao link correspondente
+                const activeLink = document.querySelector(`.nav-item[data-section="${sectionId}"]`);
+                if (activeLink) {
+                    activeLink.classList.add('active');
+                }
+            }
+        });
+    }, observerOptions);
+
+    // Observa todas as seções
+    sections.forEach(section => {
+        sectionObserver.observe(section);
     });
 
 });
